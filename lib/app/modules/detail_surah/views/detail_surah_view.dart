@@ -1,3 +1,4 @@
+import 'package:alquran_app/app/constant/color.dart';
 import 'package:alquran_app/app/data/models/detail_surah.dart' as detail;
 import 'package:alquran_app/app/data/models/surah.dart';
 import 'package:flutter/material.dart';
@@ -14,7 +15,12 @@ class DetailSurahView extends GetView<DetailSurahController> {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text('SURAH ${surah.namaLatin.toUpperCase()}'),
+        title: Text(
+          'SURAH ${surah.namaLatin.toUpperCase()}',
+          style: TextStyle(
+            color: appWhite,
+          ),
+        ),
         centerTitle: true,
       ),
       body: FutureBuilder<detail.DetailSurah?>(
@@ -34,40 +40,64 @@ class DetailSurahView extends GetView<DetailSurahController> {
           return ListView(
             padding: EdgeInsets.all(20),
             children: [
-              Card(
-                elevation: 4,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(12),
+              GestureDetector(
+                onTap: () => Get.defaultDialog(
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 30,
+                    vertical: 10,
+                  ),
+                  title: "Tafsir ${surah.namaLatin}",
+                  titleStyle: TextStyle(
+                    fontWeight: FontWeight.bold,
+                  ),
+                  content: Container(
+                    child: Text(
+                      "${surah.deskripsi}",
+                      textAlign: TextAlign.justify,
+                    ),
+                  ),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.all(20),
-                  child: Column(
-                    children: [
-                      Text(
-                        detailSurah.namaLatin.toUpperCase(),
-                        style: TextStyle(
-                          fontSize: 24,
-                          fontWeight: FontWeight.bold,
+                child: Container(
+                  decoration: BoxDecoration(
+                    borderRadius: BorderRadius.circular(20),
+                    gradient: LinearGradient(
+                      colors: [
+                        appPurpleLight1,
+                        appPurpleDark,
+                      ],
+                    ),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.all(20),
+                    child: Column(
+                      children: [
+                        Text(
+                          detailSurah.namaLatin.toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            color: appWhite,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        detailSurah.arti.toUpperCase(),
-                        style: TextStyle(
-                          fontSize: 18,
-                          fontWeight: FontWeight.w500,
-                          color: Colors.grey[700],
+                        SizedBox(height: 8),
+                        Text(
+                          detailSurah.arti.toUpperCase(),
+                          style: TextStyle(
+                            fontSize: 16,
+                            fontWeight: FontWeight.bold,
+                            color: appWhite,
+                          ),
                         ),
-                      ),
-                      SizedBox(height: 8),
-                      Text(
-                        "${detailSurah.jumlahAyat} Ayat | ${detailSurah.tempatTurun}",
-                        style: TextStyle(
-                          fontSize: 14,
-                          color: Colors.grey[600],
+                        SizedBox(height: 10),
+                        Text(
+                          "${detailSurah.jumlahAyat} Ayat | ${detailSurah.tempatTurun}",
+                          style: TextStyle(
+                            fontSize: 16,
+                            color: appWhite,
+                          ),
                         ),
-                      ),
-                    ],
+                      ],
+                    ),
                   ),
                 ),
               ),
@@ -83,10 +113,10 @@ class DetailSurahView extends GetView<DetailSurahController> {
                     crossAxisAlignment: CrossAxisAlignment.stretch,
                     children: [
                       // Bagian Atas: Nomor & Tombol
-                      Card(
-                        elevation: 2,
-                        shape: RoundedRectangleBorder(
+                      Container(
+                        decoration: BoxDecoration(
                           borderRadius: BorderRadius.circular(10),
+                          color: appPurpleLight2.withOpacity(0.3),
                         ),
                         child: Padding(
                           padding: EdgeInsets.symmetric(

@@ -1,8 +1,8 @@
 import 'package:alquran_app/app/data/models/detail_surah.dart';
-import 'package:alquran_app/app/data/models/surah.dart';
+// import 'package:alquran_app/app/data/models/surah.dart';
 import 'package:http/http.dart' as http;
 import 'dart:convert';
-import 'package:alquran_app/data/models/surah.dart'; // Pastikan path file-nya sesuai
+// import 'package:alquran_app/data/models/surah.dart'; // Pastikan path file-nya sesuai
 
 void main() async {
   Future<DetailSurah?> getDetailSurah(String id) async {
