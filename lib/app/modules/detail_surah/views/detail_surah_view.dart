@@ -41,19 +41,38 @@ class DetailSurahView extends GetView<DetailSurahController> {
             padding: EdgeInsets.all(20),
             children: [
               GestureDetector(
-                onTap: () => Get.defaultDialog(
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 30,
-                    vertical: 10,
-                  ),
-                  title: "Tafsir ${surah.namaLatin}",
-                  titleStyle: TextStyle(
-                    fontWeight: FontWeight.bold,
-                  ),
-                  content: Container(
-                    child: Text(
-                      "${surah.deskripsi}",
-                      textAlign: TextAlign.justify,
+                onTap: () => Get.dialog(
+                  Dialog(
+                    shape: RoundedRectangleBorder(
+                      borderRadius: BorderRadius.circular(20),
+                    ),
+                    child: Container(
+                      padding: EdgeInsets.all(25),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(20),
+                        color: Get.isDarkMode
+                            ? appPurpleLight2.withOpacity(0.3)
+                            : appWhite,
+                      ),
+                      child: Column(
+                        mainAxisSize: MainAxisSize.min,
+                        children: [
+                          Text(
+                            "Tafsir ${surah.namaLatin}",
+                            style: TextStyle(
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                            ),
+                          ),
+                          SizedBox(
+                            height: 20,
+                          ),
+                          Text(
+                            "${surah.deskripsi}",
+                            textAlign: TextAlign.justify,
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ),
@@ -120,15 +139,25 @@ class DetailSurahView extends GetView<DetailSurahController> {
                         ),
                         child: Padding(
                           padding: EdgeInsets.symmetric(
-                              vertical: 10, horizontal: 20),
+                            vertical: 5,
+                            horizontal: 10,
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              CircleAvatar(
-                                backgroundColor: Colors.blueAccent,
-                                child: Text(
-                                  "${ayat.nomorAyat}",
-                                  style: TextStyle(color: Colors.white),
+                              Container(
+                                height: 40,
+                                width: 40,
+                                decoration: BoxDecoration(
+                                  image: DecorationImage(
+                                    image: AssetImage(Get.isDarkMode
+                                        ? "assets/images/list-dark.png"
+                                        : "assets/images/list-light.png"),
+                                    fit: BoxFit.contain,
+                                  ),
+                                ),
+                                child: Center(
+                                  child: Text("${index + 1}"),
                                 ),
                               ),
                               Row(
