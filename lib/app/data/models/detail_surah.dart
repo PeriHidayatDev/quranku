@@ -1,13 +1,53 @@
-import 'dart:convert';
+// Model Audio untuk properti audio di ayat
+class Audio {
+  final String? primary;
 
-// Parsing dari JSON string ke DetailSurah object
-DetailSurah detailSurahFromJson(String str) =>
-    DetailSurah.fromJson(json.decode(str));
+  Audio({this.primary});
 
-// Parsing dari DetailSurah object ke JSON string
-String detailSurahToJson(DetailSurah data) => json.encode(data.toJson());
+  factory Audio.fromJson(Map<String, dynamic>? json) {
+    if (json == null) return Audio(primary: null);
+    return Audio(primary: json['primary'] as String?);
+  }
 
-// Model DetailSurah
+  Map<String, dynamic> toJson() => {
+        "primary": primary,
+      };
+}
+
+// Model Ayat dengan tambahan audio
+class Ayat {
+  final int nomorAyat;
+  final String teksArab;
+  final String teksLatin;
+  final String teksIndonesia;
+  final Audio audio; // tambahkan ini
+
+  Ayat({
+    required this.nomorAyat,
+    required this.teksArab,
+    required this.teksLatin,
+    required this.teksIndonesia,
+    required this.audio, // tambahkan ini juga di constructor
+  });
+
+  factory Ayat.fromJson(Map<String, dynamic> json) => Ayat(
+        nomorAyat: json["nomor"] ?? 0,
+        teksArab: json["ar"] ?? "",
+        teksLatin: json["tr"] ?? "",
+        teksIndonesia: json["idn"] ?? "",
+        audio: Audio.fromJson(json["audio"] as Map<String, dynamic>?),
+      );
+
+  Map<String, dynamic> toJson() => {
+        "nomor": nomorAyat,
+        "ar": teksArab,
+        "tr": teksLatin,
+        "idn": teksIndonesia,
+        "audio": audio.toJson(),
+      };
+}
+
+// Model DetailSurah tetap sama
 class DetailSurah {
   final String namaLatin;
   final String arti;
@@ -23,7 +63,6 @@ class DetailSurah {
     required this.ayat,
   });
 
-  // Factory untuk parsing dari JSON
   factory DetailSurah.fromJson(Map<String, dynamic> json) => DetailSurah(
         namaLatin: json["nama_latin"] ?? "",
         arti: json["arti"] ?? "",
@@ -34,43 +73,11 @@ class DetailSurah {
             : List<Ayat>.from(json["ayat"].map((x) => Ayat.fromJson(x))),
       );
 
-  // Convert object DetailSurah ke JSON Map
   Map<String, dynamic> toJson() => {
         "nama_latin": namaLatin,
         "arti": arti,
         "jumlah_ayat": jumlahAyat,
         "tempat_turun": tempatTurun,
         "ayat": List<dynamic>.from(ayat.map((x) => x.toJson())),
-      };
-}
-
-// Model Ayat
-class Ayat {
-  final int nomorAyat;
-  final String teksArab;
-  final String teksLatin;
-  final String teksIndonesia;
-
-  Ayat({
-    required this.nomorAyat,
-    required this.teksArab,
-    required this.teksLatin,
-    required this.teksIndonesia,
-  });
-
-  // Factory untuk parsing dari JSON
-  factory Ayat.fromJson(Map<String, dynamic> json) => Ayat(
-        nomorAyat: json["nomor"] ?? 0,
-        teksArab: json["ar"] ?? "",
-        teksLatin: json["tr"] ?? "",
-        teksIndonesia: json["idn"] ?? "",
-      );
-
-  // Convert object Ayat ke JSON Map
-  Map<String, dynamic> toJson() => {
-        "nomor": nomorAyat,
-        "ar": teksArab,
-        "tr": teksLatin,
-        "idn": teksIndonesia,
       };
 }

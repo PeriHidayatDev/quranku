@@ -169,11 +169,14 @@ class DetailSurahView extends GetView<DetailSurahController> {
                                     icon: Icon(Icons.bookmark_add_outlined),
                                   ),
                                   IconButton(
-                                    onPressed: () {
-                                      // Play audio handler
-                                    },
                                     icon: Icon(Icons.play_arrow),
+                                    onPressed: () {
+                                      controller.playAudio(surah.audio);
+                                    },
                                   ),
+                                  //kondisi => stop => button play
+                                  //kondisi => playing => button pause dan stop
+                                  //kondisi => stop => button play
                                 ],
                               ),
                             ],
